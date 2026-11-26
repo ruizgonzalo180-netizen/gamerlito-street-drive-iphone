@@ -23,7 +23,7 @@ function setIcon(button, name) {
 }
 document.querySelectorAll('[data-icon]').forEach(button => setIcon(button, button.dataset.icon));
 
-const route = ['opening.mp4','curbside.mp4','drive-0.mp4','drive-1.mp4','drive-2.mp4'];
+const route = ['opening.mp4','curbside.mp4','drive-0.mp4','drive-1.mp4','drive-2.mp4'].map(file => './'+file+'?v=4');
 const WALK_START = 2.45;
 const DOOR = 12.3;
 const held = new Set();
@@ -39,7 +39,7 @@ function hint(message, duration = 2000) {
 }
 function refreshView() {
   const foot = phase === 'foot', car = phase === 'car';
-  screenEl.classList.toggle('playing', phase !== 'home');
+  screenEl.classList.toggle('opening', phase === 'home' || phase === 'intro');
   $('home').hidden = phase !== 'home';
   $('skip').hidden = phase !== 'intro' || paused;
   $('hud').hidden = !(foot || car) || paused;
@@ -101,8 +101,10 @@ function openTrack(index, nextPhase, position=0) {
     still.width=player.videoWidth; still.height=player.videoHeight;
     still.getContext('2d').drawImage(player,0,0); still.hidden=false;
   } else still.hidden=true;
+  const continuingDrive = phase === 'car' && nextPhase === 'car';
   ready=false; track=index; phase=nextPhase;
-  resetInputs(); refreshView();
+  if(!continuingDrive) resetInputs();
+  refreshView();
   player.onloadedmetadata = () => {
     if(id !== revision) return;
     if(position) player.currentTime = position;
@@ -237,15 +239,13 @@ window.addEventListener('keyup',e=>{
   if(e.key==='ArrowDown') hold('brake',false);
 });
 document.addEventListener('visibilitychange',()=>{if(document.hidden && phase!=='home') setPaused(true);});
-let last=performance.now(), frames=0;
-function frame(now) {
+let cueFrame=0;
+function watchCue() {
+  if(player.paused || (phase!=='foot' && phase!=='arrival')) return;
   tick();
-  frames++;
-  if(now-last>=800) {
-    const ms=(now-last)/frames;
-    $('fps').textContent=Math.round(1000/ms)+' FPS';$('frame-time').textContent=ms.toFixed(1)+' ms';last=now;frames=0;
-  }
-  requestAnimationFrame(frame);
+  if(!player.paused) cueFrame=requestAnimationFrame(watchCue);
 }
-requestAnimationFrame(frame); refreshView();
-if('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(()=>{});
+player.addEventListener('playing',()=>{cancelAnimationFrame(cueFrame);watchCue();});
+player.addEventListener('pause',()=>cancelAnimationFrame(cueFrame));
+refreshView();
+if('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'}).catch(()=>{});
