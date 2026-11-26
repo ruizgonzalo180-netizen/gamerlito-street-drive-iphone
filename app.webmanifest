@@ -2,7 +2,7 @@
   "id": "./",
   "name": "GTA VI · Street Drive",
   "short_name": "GTA VI",
-  "start_url": "./?v=4",
+  "start_url": "./?v=5",
   "scope": "./",
   "display": "standalone",
   "orientation": "landscape",

@@ -1,5 +1,5 @@
-const cacheName='street-drive-shell-v4';
-const shell=['./','./index.html','./style.css?v=4','./app.js?v=4','./app.webmanifest?v=4','./cover.jpg?v=4','./icon-180.png?v=4','./icon-192.png?v=4','./icon-512.png?v=4'];
+const cacheName='street-drive-shell-v5';
+const shell=['./','./index.html','./style.css?v=5','./app.js?v=5','./app.webmanifest?v=5','./cover.jpg?v=4','./icon-180.png?v=4','./icon-192.png?v=4','./icon-512.png?v=4'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(cacheName).then(cache=>cache.addAll(shell.map(path=>new Request(path,{cache:'reload'})))).then(()=>self.skipWaiting()));
 });

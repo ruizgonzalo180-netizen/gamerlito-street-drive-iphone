@@ -8,34 +8,30 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="GTA VI">
   <title>GTA VI · Street Drive</title>
-  <link rel="manifest" href="./app.webmanifest?v=4">
+  <link rel="manifest" href="./app.webmanifest?v=5">
   <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png?v=4">
   <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=4">
   <link rel="preload" as="image" href="./cover.jpg?v=4" fetchpriority="high">
-  <link rel="stylesheet" href="./style.css?v=4">
+  <link rel="stylesheet" href="./style.css?v=5">
 </head>
 <body>
   <main id="screen" class="opening">
     <div id="picture">
-      <video id="player" preload="metadata" src="./opening.mp4?v=4" playsinline webkit-playsinline disablepictureinpicture disableremoteplayback></video>
-      <video id="buffer" preload="none" playsinline webkit-playsinline disablepictureinpicture disableremoteplayback></video>
+      <video id="player" class="active" autoplay muted preload="auto" poster="./cover.jpg?v=4" src="./opening.mp4?v=4" playsinline webkit-playsinline disablepictureinpicture disableremoteplayback></video>
       <canvas id="between" hidden aria-hidden="true"></canvas>
     </div>
-    <section id="home" aria-label="Grand Theft Auto VI">
-      <img class="key-art" src="./cover.jpg?v=4" alt="" width="1920" height="1080" fetchpriority="high" draggable="false">
-      <button id="start" type="button" aria-label="Start GTA VI"><span>Tap to start</span></button>
-    </section>
+    <button id="play-prompt" class="glass" type="button" hidden>Play</button>
     <button id="skip" class="glass" hidden>Skip intro <span aria-hidden="true">›</span></button>
+    <div id="tools" class="tools">
+      <button id="menu-toggle" class="tool" aria-label="Open session menu" aria-controls="menu" data-icon="menu" hidden></button>
+      <button id="camera" class="tool" aria-label="Zoom camera" aria-pressed="false" data-icon="camera" hidden></button>
+      <button id="sound" class="tool" aria-label="Enable sound" aria-pressed="false" data-icon="muted"></button>
+    </div>
     <div id="hud" hidden>
-      <div id="tools" class="tools">
-        <button id="pause" class="tool" aria-label="Pause session" data-icon="pause"></button>
-        <button id="camera" class="tool" aria-label="Zoom camera" aria-pressed="false" data-icon="camera"></button>
-        <button id="sound" class="tool" aria-label="Mute sound" aria-pressed="false" data-icon="sound"></button>
-      </div>
       <div class="telemetry" aria-label="Simulated 60 FPS overlay" title="60 fps playback profile"><b>60 FPS</b><span>16.7 ms</span></div>
       <div class="touch-area" id="look" aria-hidden="true"></div>
       <div id="stick" role="group" aria-label="Movement and steering joystick"><div id="nub"></div></div>
-      <div id="foot-controls" class="action-set">
+      <div id="foot-controls" class="action-set" hidden>
         <button class="control pos-enter" id="enter" data-icon="car"><small class="y">Y</small>Enter</button>
         <button class="control pos-aim" id="aim" data-icon="aim" aria-pressed="false"><small>LT</small>Aim</button>
         <button class="control major pos-gas" id="sprint" data-hold="sprint" data-icon="run"><small class="a">A</small>Sprint</button>
@@ -48,16 +44,15 @@
       </div>
       <div id="reticle" aria-hidden="true" hidden></div>
     </div>
-    <div id="notice" role="status" hidden></div>
-    <section id="menu" aria-label="Pause menu" hidden>
-      <div class="panel"><h2>Paused</h2>
-        <button class="primary" id="resume">Resume</button>
+    <section id="menu" aria-label="Session menu" hidden>
+      <div class="panel"><h2>Session</h2>
+        <button class="primary" id="resume">Back to game</button>
         <button class="secondary" id="restart">Restart session</button>
         <button class="secondary" id="quit">Back to title</button>
       </div>
     </section>
     <section id="error" aria-label="Playback error" hidden><div class="panel"><h2>Scene unavailable</h2><p>Check your connection and try again.</p><button id="retry" class="primary">Try again</button></div></section>
   </main>
-  <script src="./app.js?v=4" defer></script>
+  <script src="./app.js?v=5" defer></script>
 </body>
 </html>
