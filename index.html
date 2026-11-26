@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#11131a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Street Drive">
+  <title>Street Drive</title>
+  <link rel="manifest" href="./app.webmanifest">
+  <link rel="apple-touch-icon" href="./icon-180.png">
+  <link rel="icon" href="./icon-192.png">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main id="screen">
+    <div id="picture">
+      <video id="player" preload="metadata" src="./opening.mp4" playsinline webkit-playsinline disablepictureinpicture disableremoteplayback></video>
+      <video id="buffer" preload="none" playsinline webkit-playsinline disablepictureinpicture disableremoteplayback></video>
+      <canvas id="between" hidden aria-hidden="true"></canvas>
+    </div>
+    <section id="home" aria-label="Street Drive">
+      <div class="home-content">
+        <h1><span>STREET</span><br>DRIVE</h1>
+        <button id="start" class="primary"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 3 14 9-14 9z" fill="currentColor"/></svg>Start session</button>
+      </div>
+    </section>
+    <button id="skip" class="glass" hidden>Skip intro <span aria-hidden="true">›</span></button>
+    <div id="hud" hidden>
+      <div id="tools" class="tools">
+        <button id="pause" class="tool" aria-label="Pause session" data-icon="pause"></button>
+        <button id="camera" class="tool" aria-label="Zoom camera" aria-pressed="false" data-icon="camera"></button>
+        <button id="sound" class="tool" aria-label="Mute sound" aria-pressed="false" data-icon="sound"></button>
+      </div>
+      <div class="telemetry" aria-hidden="true"><b id="fps">— FPS</b><span id="frame-time"></span></div>
+      <div class="touch-area" id="look" aria-hidden="true"></div>
+      <div id="stick" role="group" aria-label="Movement and steering joystick"><div id="nub"></div></div>
+      <div id="foot-controls" class="action-set">
+        <button class="control pos-enter" id="enter" data-icon="car"><small class="y">Y</small>Enter</button>
+        <button class="control pos-aim" id="aim" data-icon="aim" aria-pressed="false"><small>LT</small>Aim</button>
+        <button class="control major pos-gas" id="sprint" data-hold="sprint" data-icon="run"><small class="a">A</small>Sprint</button>
+      </div>
+      <div id="car-controls" class="action-set" hidden>
+        <button class="control pos-enter" id="exit" data-icon="exit"><small class="y">Y</small>Exit</button>
+        <button class="control pos-aim" id="horn" data-icon="horn"><small>L3</small>Horn</button>
+        <button class="control pos-brake" id="brake" data-hold="brake" data-icon="brake"><small>LT</small>Brake</button>
+        <button class="control major pos-gas" id="gas" data-hold="gas" data-icon="gas"><small>RT</small>Gas</button>
+      </div>
+      <div id="reticle" aria-hidden="true" hidden></div>
+    </div>
+    <div id="notice" role="status" hidden></div>
+    <section id="menu" aria-label="Pause menu" hidden>
+      <div class="panel"><h2>Paused</h2>
+        <button class="primary" id="resume">Resume</button>
+        <button class="secondary" id="restart">Restart session</button>
+        <button class="secondary" id="quit">Back to title</button>
+      </div>
+    </section>
+    <section id="error" aria-label="Playback error" hidden><div class="panel"><h2>Scene unavailable</h2><p>Check your connection and try again.</p><button id="retry" class="primary">Try again</button></div></section>
+  </main>
+  <script src="./app.js" defer></script>
+</body>
+</html>
