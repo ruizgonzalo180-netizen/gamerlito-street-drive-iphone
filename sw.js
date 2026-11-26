@@ -1,4 +1,4 @@
-const cacheName='street-drive-shell-v1';
+const cacheName='street-drive-shell-v2';
 const shell=['./','./index.html','./style.css','./app.js','./app.webmanifest','./cover.jpg','./icon-180.png','./icon-192.png','./icon-512.png'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(cacheName).then(cache=>cache.addAll(shell)).then(()=>self.skipWaiting()));
